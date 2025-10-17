@@ -1,0 +1,47 @@
+name: Test Unique Label Assignment
+on:
+  workflow_dispatch:
+    inputs:
+      unique_label:
+        description: 'Unique runner label for this job'
+        required: true
+        type: string
+      test_name:
+        description: 'Test identifier'
+        required: false
+        type: string
+        default: 'test'
+    
+jobs:
+  build:
+    runs-on: [self-hosted, ${{ inputs.unique_label }}]
+    steps:
+      - name: Identify Job
+        run: |
+          echo "=========================================="
+          echo "Test Name: ${{ inputs.test_name }}"
+          echo "Unique Label: ${{ inputs.unique_label }}"
+          echo "Job ID: ${{ github.job }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Runner Name: ${{ runner.name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "=========================================="
+          
+      - name: Verify unique assignment
+        run: |
+          echo "This job should ONLY run on runner with label: ${{ inputs.unique_label }}"
+          echo "If multiple jobs are queued, each should run on its assigned runner"
+          
+      - name: Simulate work
+        run: |
+          echo "Running for 30 seconds to allow observation..."
+          sleep 30
+          echo "Job complete!"
+          
+      - name: Report success
+        run: |
+          echo "=========================================="
+          echo "✅ SUCCESS: Job executed on correct runner"
+          echo "Label: ${{ inputs.unique_label }}"
+          echo "Runner: ${{ runner.name }}"
+          echo "=========================================="

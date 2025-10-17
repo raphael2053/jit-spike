@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/raphael2053/jit-spike",
+  "runner_group_id": 1,
+  "labels": [
+    "jit-spike"
+  ],
+  "runner_group_name": "Default",
+  "work_folder": "_work"
+}
