@@ -1,0 +1,22 @@
+name: Test Job 2
+on:
+  workflow_dispatch:
+    
+jobs:
+  test-2:
+    runs-on: [self-hosted, jit-spike]
+    steps:
+      - name: Identify Job
+        run: |
+          echo "=========================================="
+          echo "This is TEST JOB 2"
+          echo "Job ID: ${{ github.job }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Runner Name: ${{ runner.name }}"
+          echo "=========================================="
+          
+      - name: Wait and verify
+        run: |
+          echo "Running for 30 seconds to allow observation..."
+          sleep 30
+          echo "Test Job 2 Complete!"
