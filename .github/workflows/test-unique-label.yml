@@ -14,7 +14,7 @@ on:
     
 jobs:
   build:
-    runs-on: [self-hosted, ${{ inputs.unique_label }}]
+    runs-on: ['self-hosted', '${{ inputs.unique_label }}']
     steps:
       - name: Identify Job
         run: |
