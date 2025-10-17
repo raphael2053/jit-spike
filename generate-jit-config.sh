@@ -55,7 +55,16 @@ fi
 JIT_CONFIG=$(echo "$RESPONSE" | jq -r '.encoded_jit_config')
 
 if [ "$JIT_CONFIG" = "null" ] || [ -z "$JIT_CONFIG" ]; then
-    echo "❌ Failed to get JIT config"
+    echo "❌ Failed to get JIT config from API response"
+    echo ""
+    echo "Full API Response:"
+    echo "$RESPONSE" | jq .
+    echo ""
+    echo "Possible issues:"
+    echo "1. Token lacks 'administration:write' permission for repository"
+    echo "2. GitHub App not installed on repository"
+    echo "3. Endpoint URL incorrect"
+    echo "4. Runner group ID invalid (trying with default group 1)"
     exit 1
 fi
 
